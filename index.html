@@ -40,10 +40,46 @@
 					<div id="main">
 
 						<!-- Resume -->
-							<article id="resume">
-								<h2 class="major">Resume</h2>
-								<p><a href="#" target="_blank" rel="noopener">View Resume</a></p>
-							</article>
+						<article id="resume">
+							<h2 class="major">Resume</h2>
+						  
+							<canvas id="pdf-canvas" style="width:100%;"></canvas>
+						  
+							<!-- ✅ Correct CDN for PDF.js full build -->
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+						  
+							<script>
+							  // Path to your PDF inside your GitHub Pages repo
+							  const url = 'assets/resume.pdf';  // adjust path if needed
+						  
+							  // Set the worker source (required by PDF.js)
+							  pdfjsLib.GlobalWorkerOptions.workerSrc =
+								'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+						  
+							  // Load the PDF
+							  const loadingTask = pdfjsLib.getDocument(url);
+							  loadingTask.promise.then(pdf => {
+								// Load first page
+								pdf.getPage(1).then(page => {
+								  const scale = 1.4; // adjust zoom
+								  const viewport = page.getViewport({ scale });
+								  const canvas = document.getElementById('pdf-canvas');
+								  const context = canvas.getContext('2d');
+						  
+								  canvas.height = viewport.height;
+								  canvas.width = viewport.width;
+						  
+								  const renderContext = {
+									canvasContext: context,
+									viewport: viewport
+								  };
+								  page.render(renderContext);
+								});
+							  }).catch(error => {
+								console.error('Error loading PDF:', error);
+							  });
+							</script>
+						  </article>												
 
 						<!-- Work -->
 							<article id="work">
