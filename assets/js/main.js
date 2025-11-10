@@ -398,4 +398,90 @@
 						$main._show(location.hash.substr(1), true);
 					});
 
+	// Project Image Carousel
+		(function() {
+			var imageCarousels = [];
+			var carouselInterval = 4000; // 4 seconds between transitions
+
+			function cleanupCarousels() {
+				imageCarousels.forEach(function(carousel) {
+					clearInterval(carousel.intervalId);
+				});
+				imageCarousels = [];
+			}
+
+			function initImageCarousels() {
+				// Clean up existing carousels first
+				cleanupCarousels();
+				
+				// Find all project image containers
+				$('#project .project-item .image.main, #project .project-grid .image.main').each(function() {
+					var $container = $(this);
+					var $images = $container.find('img');
+					
+					// Only initialize if there are multiple images
+					if ($images.length > 1) {
+						var currentIndex = 0;
+						
+						// Set all images to absolute positioning and hide them
+						$images.each(function(index) {
+							var $img = $(this);
+							$img.css({
+								'position': 'absolute',
+								'top': '0',
+								'left': '0',
+								'opacity': index === 0 ? '1' : '0',
+								'z-index': index === 0 ? '1' : '0'
+							});
+							if (index === 0) {
+								$img.addClass('active');
+							} else {
+								$img.removeClass('active');
+							}
+						});
+						
+						// Function to rotate images
+						function rotateImages() {
+							// Remove active class from current image
+							$images.eq(currentIndex).removeClass('active').css('opacity', '0');
+							
+							// Move to next image
+							currentIndex = (currentIndex + 1) % $images.length;
+							
+							// Show next image
+							$images.eq(currentIndex).addClass('active').css('opacity', '1');
+						}
+						
+						// Start rotation
+						var intervalId = setInterval(rotateImages, carouselInterval);
+						
+						// Store interval ID for cleanup
+						imageCarousels.push({
+							container: $container,
+							intervalId: intervalId
+						});
+					}
+				});
+			}
+
+			// Initialize carousels when page loads
+			$window.on('load', function() {
+				// Small delay to ensure DOM is ready
+				setTimeout(initImageCarousels, 100);
+			});
+
+			// Re-initialize carousels when project article becomes active
+			var originalShow = $main._show;
+			$main._show = function(id, initial) {
+				var result = originalShow.apply(this, arguments);
+				if (id === 'project') {
+					setTimeout(initImageCarousels, 500);
+				}
+				return result;
+			};
+
+			// Clean up on page unload
+			$window.on('beforeunload', cleanupCarousels);
+		})();
+
 })(jQuery);

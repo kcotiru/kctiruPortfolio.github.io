@@ -27,7 +27,7 @@
 						</div>
 					<nav>
 						<ul>
-							<li><a href="#work">Work</a></li>
+							<li><a href="#project">Projects</a></li>
 							<li><a href="#about">About</a></li>
 							<li><a href="#contact">Contact</a></li>
 							<li><a href="#resume">Resume</a></li>
@@ -40,62 +40,65 @@
 					<div id="main">
 
 						<!-- Resume -->
-						<article id="resume">
-							<h2 class="major">Resume</h2>
-						  
-							<canvas id="pdf-canvas" style="width:100%;"></canvas>
-						  
-							<!-- ✅ Correct CDN for PDF.js full build -->
-							<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-						  
-							<script>
-							  // Path to your PDF inside your GitHub Pages repo
-							  const url = 'assets/resume.pdf';  // adjust path if needed
-						  
-							  // Set the worker source (required by PDF.js)
-							  pdfjsLib.GlobalWorkerOptions.workerSrc =
-								'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-						  
-							  // Load the PDF
-							  const loadingTask = pdfjsLib.getDocument(url);
-							  loadingTask.promise.then(pdf => {
-								// Load first page
-								pdf.getPage(1).then(page => {
-								  const scale = 1.4; // adjust zoom
-								  const viewport = page.getViewport({ scale });
-								  const canvas = document.getElementById('pdf-canvas');
-								  const context = canvas.getContext('2d');
-						  
-								  canvas.height = viewport.height;
-								  canvas.width = viewport.width;
-						  
-								  const renderContext = {
-									canvasContext: context,
-									viewport: viewport
-								  };
-								  page.render(renderContext);
-								});
-							  }).catch(error => {
-								console.error('Error loading PDF:', error);
-							  });
-							</script>
-						  </article>												
-
-						<!-- Work -->
-							<article id="work">
-								<h2 class="major">Work</h2>
-								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
-								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
+							<article id="resume">
+								<h2 class="major">Resume</h2>
+								<p><a  href="https://drive.google.com/file/d/1bJNw-UZH0RzKL3tFc_hS01RjhJv-4o9P/view?usp=drive_link" target="_blank" rel="noopener">View PDF</a></p>
+								<img src="assets/resume.jpg" alt="Resume" style="width:100%; max-width:800px; height:auto; display:block; margin:auto; border-radius:8px;">
 							</article>
+
+						<!-- Projects -->
+						<article id="project">
+							<h2 class="major">Projects</h2>
+							<div class="project-grid">
+								<div class="project-item">
+									<h3 class="project-title"><a href="https://github.com/kcotiru/Laptop-Price-Prediction" target="_blank" rel="noopener">Laptop Price Prediction</a></h3>
+									<span class="image main"><img src="assets/images/project-1.jpg" alt="" /><img src="assets/images/project1-2.png" alt="" /></span>
+									<p>A deep learning model to estimate laptop prices from hardware specs</p>
+								</div>
+								<div class="project-item">
+									<h3 class="project-title"><a href="https://github.com/kcotiru/Thesis" target="_blank" rel="noopener">Aquatic Monitoring System</a></h3>
+									<span class="image main"><img src="assets/images/project2-1.jpg" alt="" /><img src="assets/images/project2-2.jpg" alt="" /></span>
+									<p>A Raspberry Pi–based real-time monitoring app with CNN-driven fish behavior detection, sensor integration, and smart alerts.</p>
+								</div>
+								<div class="project-item">
+									<h3 class="project-title"><a href="https://github.com/kcotiru/ChordRepo" target="_blank" rel="noopener">Chord Application</a></h3>
+									<span class="image main"><img src="assets/images/project3-1.jpg" alt="" /><img src="assets/images/project3-2.jpg" alt="" /><img src="assets/images/project3-3.png" alt="" /></span>
+									<p>A Flutter mobile app for storing and editing song chords, featuring automatic chord transposition across keys.
+
+									</p>
+								</div>
+							</div>
+						</article>
 
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
+								<div class="about-content">
+									<div class="profile-image-container">
+										<span class="image profile"><img src="assets/images/profile.png" alt="Profile Picture" /></span>
+									</div>
+									<div class="profile-info">
+										<div class="profile-detail">
+											<strong>Name:</strong>
+											<span>Katriel Caleb Tiru</span>
+										</div>
+										<div class="profile-detail">
+											<strong>Profile:</strong>
+											<span>Computer Science Student</span>
+										</div>
+										<div class="profile-detail">
+											<strong>Email:</strong>
+											<span><a href="mailto:kctiru123@gmail.com">kcotiru@gmail.com</a></span>
+										</div>
+										<div class="profile-detail">
+											<strong>Phone Number:</strong>
+											<span>+63 928-431-8068</span>
+										</div>
+									</div>
+								</div>
 								<p>Hi! I am Katriel Caleb Tiru, a 4th year Computer Science student from Holy Angel University. I'm enthusiastic about building systems and websites connected through Python, JavaScript, and other technologies. I enjoy working on API integrations, and automation that make processes smarter and more efficient.</p>
-								<p>I’ve developed projects ranging from an IoT monitoring system powered by Google Cloud and Firebase, to a machine learning model for laptop price prediction, and a mobile application that enables users to store and edit song chords with automatic key transposition. I’ve also worked with Supabase and RESTful APIs for web application backends.</p>
-								<p>I’m currently seeking an OJT opportunity where I can apply my technical skills, learn from experienced developers, and contribute to meaningful software solutions</p>
+								<p>I've developed projects ranging from an IoT monitoring system powered by Google Cloud and Firebase, to a machine learning model for laptop price prediction, and a mobile application that enables users to store and edit song chords with automatic key transposition. I've also worked with Supabase and RESTful APIs for web application backends.</p>
+								<p>I'm currently seeking an OJT opportunity where I can apply my technical skills, learn from experienced developers, and contribute to meaningful software solutions</p>
 							</article>
 
 						<!-- Contact -->
@@ -123,7 +126,7 @@
 								</form>
 								<ul class="icons">
 									<li><a href="https://www.facebook.com/kc.tiru" class="icon brands fa-facebook-f" target="_blank" rel="noopener"><span class="label">Facebook</span></a></li>
-									<li><a href="https://www.linkedin.com/in/kc-tiru-212766395" class="icon brands fa-linkedin-in" target="_blank" rel="noopener"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://www.linkedin.com/in/kctiru" class="icon brands fa-linkedin-in" target="_blank" rel="noopener"><span class="label">LinkedIn</span></a></li>
 								</ul>
 							</article>
 
